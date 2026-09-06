@@ -10,28 +10,28 @@ import androidx.core.app.NotificationCompat
 
 object NotificationHelper {
 
-    const val CHANNEL_ID = "fake_call_channel"
-    const val NOTIFICATION_ID = 1001
+    const val CHANNEL_ID = "persistent_call_channel"
+    const val NOTIFICATION_ID = 2001
 
     fun createChannel(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val manager = context.getSystemService(NotificationManager::class.java)
-            val existing = manager.getNotificationChannel(CHANNEL_ID)
-            if (existing == null) {
+            if (manager.getNotificationChannel(CHANNEL_ID) == null) {
                 val channel = NotificationChannel(
                     CHANNEL_ID,
-                    "Fake Call Alerts",
-                    NotificationManager.IMPORTANCE_HIGH
+                    "Escape Call",
+                    NotificationManager.IMPORTANCE_LOW
                 ).apply {
-                    description = "Tap to start a fake incoming call"
-                    setSound(null, null) // notification itself is silent; ringtone plays after tap
+                    description = "Standing notification — tap it to start a fake incoming call"
+                    setSound(null, null)
                 }
                 manager.createNotificationChannel(channel)
             }
         }
     }
 
-    fun showCallNotification(context: Context) {
+    /** Always-on notification. Tapping it opens the fake call screen immediately. */
+    fun showPersistentNotification(context: Context) {
         createChannel(context)
 
         val tapIntent = Intent(context, FakeCallActivity::class.java).apply {
@@ -43,15 +43,20 @@ object NotificationHelper {
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(android.R.drawable.sym_call_incoming)
-            .setContentTitle("Incoming call")
-            .setContentText("Tap to answer")
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setCategory(NotificationCompat.CATEGORY_CALL)
+            .setContentTitle("Escape Call ready")
+            .setContentText("Tap to start an incoming call")
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setOngoing(true)
+            .setAutoCancel(false)
             .setContentIntent(pendingIntent)
-            .setAutoCancel(true)
             .build()
 
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         manager.notify(NOTIFICATION_ID, notification)
+    }
+
+    fun cancelPersistentNotification(context: Context) {
+        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        manager.cancel(NOTIFICATION_ID)
     }
 }
