@@ -18,7 +18,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1) Pick a delay. 2) Enable the standing notification below. 3) When you need out, pull down the shade and tap it — the fake call arrives after the delay."
+        android:text="Pick a delay. You'll get a notification; tap it to start a fake incoming call."
         android:textAlignment="center"
         android:layout_marginBottom="24dp" />
 
@@ -55,32 +55,17 @@
 
     </RadioGroup>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/scheduleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/enableButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:text="Enable" />
-
-        <Button
-            android:id="@+id/disableButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Disable" />
-
-    </LinearLayout>
+        android:text="Schedule Fake Call" />
 
     <TextView
         android:id="@+id/statusText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textAlignment="center"
         android:textStyle="italic" />
 
 </LinearLayout>
