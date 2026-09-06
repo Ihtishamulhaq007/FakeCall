@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.FakeCall" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/purple</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/green_accept</item>
+    </style>
+
+    <style name="Theme.FakeCall.NoActionBar" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">@color/bg_dark</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+</resources>
